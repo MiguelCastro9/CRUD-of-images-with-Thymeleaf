@@ -41,8 +41,9 @@ public class ImagemController {
     }
     
     @PostMapping("/salvar")
-    public ModelAndView salvar(Imagem imagem, @RequestParam MultipartFile file) {
+    public String salvar(Imagem imagem, @RequestParam MultipartFile file) {
         
+        ModelAndView mv = new ModelAndView("/cadastro");
         imagemService.save(imagem);
         
         try {
@@ -57,7 +58,7 @@ public class ImagemController {
             e.printStackTrace();
         }
         
-        return cadastro(new Imagem());
+        return "redirect:/imagem/cadastrar";
     }
     
     @ResponseBody
