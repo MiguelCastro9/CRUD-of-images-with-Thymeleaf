@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/imagem")
 public class ImagemController {
     
-    private static String caminho = "C:\\";
+    private static String caminho = "C:\\Users\\miguel-home\\Documents\\";
     
     @Autowired
     private ImagemService imagemService;
@@ -36,6 +36,7 @@ public class ImagemController {
         
         ModelAndView mv = new ModelAndView("/cadastro");
         mv.addObject("imagem", imagem);
+        mv.addObject("lista", imagemService.list());
         return mv;
     }
     
@@ -59,16 +60,8 @@ public class ImagemController {
         return cadastro(new Imagem());
     }
     
-    @GetMapping("/listar")
-    public ModelAndView listar() {
-        
-        ModelAndView mv = new ModelAndView("/lista");
-        mv.addObject("lista", imagemService.list());
-        return mv;
-    }
-    
-    @GetMapping("/exibeImagem/{imagem}")
     @ResponseBody
+    @GetMapping("/exibeImagem/{imagem}")
     public byte[] exibeImagem(@PathVariable("imagem") String imagem) throws IOException {
         
         File arquivo = new File(caminho + imagem);

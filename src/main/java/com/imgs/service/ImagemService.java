@@ -18,7 +18,7 @@ public class ImagemService {
     
     public Imagem save(Imagem imagem) {
         
-        return imagemRepository.save(imagem);
+        return imagemRepository.saveAndFlush(imagem);
     }
     
     public List<Imagem> list() {
