@@ -25,27 +25,27 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/imagem")
 public class ImagemController {
-    
+
     private static String caminho = "C:\\Users\\miguel-home\\Documents\\";
-    
+
     @Autowired
     private ImagemService imagemService;
-    
+
     @GetMapping()
     public ModelAndView cadastro(Imagem imagem) {
-        
+
         ModelAndView mv = new ModelAndView("/cadastro");
         mv.addObject("imagem", imagem);
         mv.addObject("lista", imagemService.list());
         return mv;
     }
-    
+
     @PostMapping("/salvar")
     public String salvar(Imagem imagem, @RequestParam MultipartFile file) {
-        
+
         ModelAndView mv = new ModelAndView("/cadastro");
         imagemService.save(imagem);
-        
+
         try {
             if (!file.isEmpty()) {
                 byte[] bytes = file.getBytes();
@@ -57,19 +57,19 @@ public class ImagemController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return "redirect:/imagem";
     }
-    
+
     @ResponseBody
     @GetMapping("/exibeImagem/{imagem}")
     public byte[] exibeImagem(@PathVariable("imagem") String imagem) throws IOException {
-        
+
         File arquivo = new File(caminho + imagem);
         if (imagem != null || imagem.trim().length() > 0) {
             return Files.readAllBytes(arquivo.toPath());
         }
-        
+
         return null;
     }
 }
