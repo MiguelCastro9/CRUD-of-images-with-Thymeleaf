@@ -31,7 +31,7 @@ public class ImagemController {
     @Autowired
     private ImagemService imagemService;
     
-    @GetMapping("/cadastrar")
+    @GetMapping()
     public ModelAndView cadastro(Imagem imagem) {
         
         ModelAndView mv = new ModelAndView("/cadastro");
@@ -58,7 +58,7 @@ public class ImagemController {
             e.printStackTrace();
         }
         
-        return "redirect:/imagem/cadastrar";
+        return "redirect:/imagem";
     }
     
     @ResponseBody
